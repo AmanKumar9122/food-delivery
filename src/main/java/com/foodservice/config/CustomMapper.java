@@ -4,6 +4,7 @@ import com.foodservice.entity.Customer;
 import com.foodservice.entity.MenuItem;
 import com.foodservice.entity.Restaurant;
 import com.foodservice.entity.dto.*;
+import org.springframework.stereotype.Component;
 
 public class CustomMapper {
 
@@ -21,17 +22,10 @@ public class CustomMapper {
         customer.setCustomerEmail(dto.getCustomerEmail());
         customer.setCustomerPhone(dto.getCustomerPhone());
         return customer;
-        public static Customer customerDTOToCustomer(CustomerDTO dto) {
-            Customer customer = new Customer();
-            customer.setId(dto.getId());
-            customer.setName(dto.getName());
-            customer.setEmail(dto.getEmail());
-            customer.setPhone(dto.getPhone());
-            return customer;
-        }
+    }
 
     // Restaurant Mappings
-    public Restaurant toRestaurantEntity(RestaurantRequestDTO dto) {
+    public static Restaurant toRestaurantEntity(RestaurantRequestDTO dto) {
         Restaurant restaurant = new Restaurant();
         restaurant.setRestaurantName(dto.getRestaurantName());
         restaurant.setRestaurantAddress(dto.getRestaurantAddress());
@@ -39,7 +33,7 @@ public class CustomMapper {
         return restaurant;
     }
 
-    public RestaurantResponseDTO toRestaurantDto(Restaurant entity) {
+    public static RestaurantResponseDTO toRestaurantDto(Restaurant entity) {
         RestaurantResponseDTO dto = new RestaurantResponseDTO();
         dto.setRestaurantId(entity.getRestaurantId());
         dto.setRestaurantName(entity.getRestaurantName());
@@ -49,7 +43,7 @@ public class CustomMapper {
     }
 
     // MenuItem Mappings
-    public MenuItem toMenuItemEntity(MenuItemRequestDTO dto) {
+    public static MenuItem toMenuItemEntity(MenuItemRequestDTO dto) {
         MenuItem menuItem = new MenuItem();
         menuItem.setItemName(dto.getItemName());
         menuItem.setItemDescription(dto.getItemDescription());
@@ -57,7 +51,7 @@ public class CustomMapper {
         return menuItem;
     }
 
-    public MenuItemResponseDTO toMenuItemDto(MenuItem entity) {
+    public static MenuItemResponseDTO toMenuItemDto(MenuItem entity) {
         MenuItemResponseDTO dto = new MenuItemResponseDTO();
         dto.setItemId(entity.getItemId());
         dto.setItemName(entity.getItemName());
