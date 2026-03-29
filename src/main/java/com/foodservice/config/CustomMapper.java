@@ -8,7 +8,6 @@ import com.foodservice.entity.DeliveryAddress;
 import com.foodservice.entity.MenuItem;
 import com.foodservice.entity.Order;
 import com.foodservice.entity.Restaurant;
-import com.foodservice.entity.dto.CouponResponseDTO;
 import com.foodservice.entity.dto.CustomerDTO;
 import com.foodservice.entity.dto.DeliveryAddressDTO;
 import com.foodservice.entity.dto.DeliveryDriverDTO;
