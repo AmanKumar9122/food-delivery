@@ -24,7 +24,6 @@ public class OrderController {
 
         OrderCustomerDTO orderCustomerDTO = orderService.getOrdersByCustomerId(customerId, page, size, token);
 
-        System.out.println(orderCustomerDTO);
         model.addAttribute("orderCustomerDTO", orderCustomerDTO);
         return "pages/orders";
     }

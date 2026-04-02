@@ -19,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderCustomerDTO getOrdersByCustomerId(Integer customerId, Integer page, Integer size, String token) {
 
         ApiGetRequest<OrderCustomerDTO> apiGetRequest = new ApiGetRequest<>(webClient);
+        
         return apiGetRequest.get("/orders/customer/" + customerId, 
                 Map.of("page", page.toString(), "size", size.toString()), 
                 token, 
