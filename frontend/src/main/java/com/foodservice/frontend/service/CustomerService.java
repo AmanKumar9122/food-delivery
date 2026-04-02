@@ -3,16 +3,17 @@ package com.foodservice.frontend.service;
 import com.foodservice.frontend.entity.dto.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerService {
 
-    List<CustomerDTO> getAllCustomers(int page, int size, String token);
+    List<CustomerDTO> getAllCustomers(Map<String , String> params , String token);
 
-    CustomerDTO getCustomerById(Integer id, String token);
+    CustomerDTO getCustomerById(Integer id, Map<String, String> params, String token);
 
-    List<DeliveryAddressDTO> getAddresses(Integer id, String token);
+    List<DeliveryAddressDTO> getAddresses(Integer id, Map<String, String> params, String token);
 
-    List<OrderItemDetailDTO> getOrders(Integer id, String token);
+    List<OrderItemDetailDTO> getOrders(Integer id, Map<String, String> params, String token);
 
-    CustomerAnalyticsDTO getAnalytics(Integer id, String token);
+    CustomerAnalyticsDTO getAnalytics(Integer id, Map<String, String> params, String token);
 }

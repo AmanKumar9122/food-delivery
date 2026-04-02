@@ -19,13 +19,11 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
     private final WebClient webClient;
 
     @Override
-    public DeliveryAddressDTO getAddressById(Integer addressId, String token) {
+    public DeliveryAddressDTO getAddressById(Integer addressId, Map<String, String> params, String token) {
 
         ApiGetRequest<DeliveryAddressDTO> apiGetRequest = new ApiGetRequest<>(webClient);
 
         String url = "/delivery-address/addresses/" + addressId;
-
-        Map<String, String> params = Map.of();
 
         ParameterizedTypeReference<ApiResponseDTO<DeliveryAddressDTO>> typeRef =
                 new ParameterizedTypeReference<>() {};
@@ -34,15 +32,11 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
     }
 
     @Override
-    public List<DeliveryAddressDTO> getAddressesByCity(String city, String token) {
+    public List<DeliveryAddressDTO> getAddressesByCity(Map<String , String> params, String token) {
 
         ApiGetRequest<List<DeliveryAddressDTO>> apiGetRequest = new ApiGetRequest<>(webClient);
 
         String url = "/delivery-address/addresses/city";
-
-        Map<String, String> params = Map.of(
-                "city", city
-        );
 
         ParameterizedTypeReference<ApiResponseDTO<List<DeliveryAddressDTO>>> typeRef =
                 new ParameterizedTypeReference<>() {};
