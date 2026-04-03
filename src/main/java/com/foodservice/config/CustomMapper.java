@@ -221,15 +221,19 @@ public class CustomMapper {
 
     public DeliveryDriverResponseDTO toOrderDTO(Order order) {
         DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
-        dto.setCustomer(customerToCustomerDTO(order.getCustomer()));
-        dto.setRestaurant(toRestaurantDto(order.getRestaurant()));
+        dto.setCustomerId(order.getCustomer().getCustomerId());
+        dto.setCustomerName(order.getCustomer().getCustomerName());
+        dto.setResturentId(order.getRestaurant().getRestaurantId());
+        dto.setResturentName(order.getRestaurant().getRestaurantName());
         dto.setOrderStatus(order.getOrderStatus());
-        dto.setOrderDate(order.getOrderDate());
         return dto;
     }
 
     public DeliveryDriverResponseDTO toRestaurantDTO(Restaurant restaurant) {
-        return toRestaurantDto(restaurant);
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setResturentId(restaurant.getRestaurantId());
+        dto.setResturentName(restaurant.getRestaurantName());
+        return dto;
     }
 
     public DeliveryDriverResponseDTO toCustomerDTO(Customer customer) {
