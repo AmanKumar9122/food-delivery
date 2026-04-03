@@ -12,6 +12,7 @@ import com.foodservice.repository.DeliveryAddressRepository;
 import com.foodservice.repository.OrderRepository;
 import com.foodservice.service.CustomerService;
 import com.foodservice.constants.CustomerErrorConstant;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -60,14 +61,12 @@ public class CustomerServiceImpl implements CustomerService {
                 .getContent();   // ✅ convert Page → List
     }
 
+
     @Override
-    public List<CustomerDTO> getCustomersByCity(String city) {
-        List<CustomerDTO> customers = addressRepository.findByCityIgnoreCase(city)
-                .stream()
-                .map(DeliveryAddress::getCustomer)
-                .distinct()
-                .map(CustomMapper::customerToCustomerDTO)
-                .toList();
+    public List<CustomerDTO> getCustomersByCity(String city, @Min(0) Integer page, @Min(1) Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Customer> customers = customerRepository.findCustomersByCity(city , pageable);
 
         if (customers.isEmpty()) {
             throw new ResourceNotFoundException(
@@ -75,7 +74,9 @@ public class CustomerServiceImpl implements CustomerService {
             );
         }
 
-        return customers;
+        return customers
+                .map(CustomMapper::customerToCustomerDTO)
+                .getContent();   // ✅ convert Page → List
     }
 
     @Override

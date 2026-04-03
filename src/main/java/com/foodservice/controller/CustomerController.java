@@ -99,11 +99,14 @@ public class CustomerController {
     }
 
     @GetMapping("/city")
-    public ResponseEntity<ApiResponseDTO> getCustomersByCity(@RequestParam String city) {
+    public ResponseEntity<ApiResponseDTO> getCustomersByCity(
+            @RequestParam String city ,
+            @RequestParam(name = "page", defaultValue = "0") @Min(0) Integer page,
+            @RequestParam(name = "size", defaultValue = "5") @Min(1) Integer size ) {
 
         log.info("Received request to fetch customers by city. city={}", city);
 
-        List<CustomerDTO> customersByCity = customerService.getCustomersByCity(city);
+        List<CustomerDTO> customersByCity = customerService.getCustomersByCity(city , page , size);
 
         log.debug("Successfully fetched customers by city. city={}, resultCount={}", city, customersByCity.size());
 
