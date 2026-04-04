@@ -61,7 +61,6 @@ public class CustomerServiceImpl implements CustomerService {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Customer> customers = customerRepository.findCustomersByCity(city , pageable);
-
         return customers
                 .map(CustomMapper::customerToCustomerDTO)
                 .getContent();   //  convert Page → List
@@ -81,6 +80,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerAnalyticsDTO getCustomerAnalytics(Integer customerId) {
+        
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                String.format(CustomerErrorConstant.CUSTOMER_NOT_FOUND, customerId)
+                        )
+                );
+
+        CustomerDTO customerDTO = CustomMapper.customerToCustomerDTO(customer);
 
         List<OrderItemDetailDTO> items =
                 orderRepository.getOrderDetailsByCustomerId(customerId);
@@ -93,7 +101,6 @@ public class CustomerServiceImpl implements CustomerService {
 
         Integer totalOrders = (int) items.stream()
                 .map(OrderItemDetailDTO::getOrderDate)
-                .distinct()
                 .count();
 
         Double totalSpend = items.stream()
@@ -107,7 +114,9 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerAnalyticsDTO(
                 totalOrders,
                 totalSpend,
-                avgOrderValue
+                avgOrderValue,
+                customerDTO.getCustomerName(),
+                customerDTO.getCustomerEmail()
         );
     }
 

@@ -36,6 +36,14 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(InvalidDateRangeException.class)
+    public ResponseEntity<ApiResponseDTO> handleInvalidDateRangeException(InvalidDateRangeException ex) {
+        log.warn("Invalid date range: {}", ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ApiResponseDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null));
+    }
+
     @ExceptionHandler(RestaurantNotFoundException.class)
     public ResponseEntity<ApiResponseDTO> handleRestaurantNotFoundException(RestaurantNotFoundException ex){
         log.warn("Restaurant not found: {}", ex.getMessage());
@@ -112,6 +120,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ApiResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred. Please try again later.", null));
+    }
+
+
+    //driverexception
+
+    @ExceptionHandler(InvalidOperationException.class)
+    public ResponseEntity<ApiResponseDTO> handleInvalidOperation(InvalidOperationException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ApiResponseDTO(400, ex.getMessage(), null));
     }
 
 }
