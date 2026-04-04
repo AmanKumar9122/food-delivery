@@ -15,6 +15,21 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @GetMapping("/analytics-search")
+    public String searchAnalytics() {
+        return "pages/customer/customer-search";
+    }
+
+    @GetMapping("/order-search")
+    public String searchOrders() {
+        return "pages/customer/order-search";
+    }
+
+    @GetMapping("/city-search")
+    public String searchCustomerByCity() {
+        return "pages/customer/city-search";
+    }
+
     @GetMapping()
     public String getAllCustomers(
             @RequestParam Map<String, String> params,
@@ -57,7 +72,7 @@ public class CustomerController {
             Model model) {
 
         model.addAttribute("customers", customerService.getCustomerByCiy(params, token));
-        return "pages/customer/customers";
+        return "pages/customer/customer-city";
     }
 
     @GetMapping("/{id}/orders")
